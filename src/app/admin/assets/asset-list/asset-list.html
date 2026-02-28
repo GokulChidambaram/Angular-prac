@@ -1,0 +1,33 @@
+<div class="header">
+<h2>Assets</h2>
+<button (click)="addAsset()">+ Add New Asset</button>
+</div>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Asset ID</th>
+<th>Model No</th>
+<th>Name</th>
+<th>Status</th>
+<th>Unit Price</th>
+<th>Date</th>
+<th>Edit</th>
+<th>Delete</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let a of assets">
+<td>{{ a.id }}</td>
+<td>{{ a.assetId }}</td>
+<td>{{ a.modelNo }}</td>
+<td>{{ a.name }}</td>
+<td>{{ a.status }}</td>
+<td>{{ a.price }}</td>
+<td>{{ a.date }}</td>
+<td>Edit</td>
+<td>Delete</td>
+</tr>
+</tbody>
+</table>
+ 

@@ -1,0 +1,263 @@
+/* ===============================
+   Admin Dashboard Styles (SCSS)
+   =============================== */
+
+/* ---------- Theme Variables ---------- */
+$primary: #2563eb;         // Primary blue
+$primary-600: #1e4fd4;
+$accent: #f59e0b;          // Accent amber (can be used later)
+$success: #10b981;         // Green (optional)
+$error: #ef4444;           // Red (optional)
+
+$bg: #0b1020;              // App background (slate/indigo dark)
+$panel: #111827;           // Panel/card background
+$panel-100: #1f2937;       // Slightly lighter for borders/hover
+$text: #e5e7eb;            // Primary text
+$muted: #9ca3af;           // Secondary text
+$border: rgba(255, 255, 255, 0.08);
+$shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+
+/* ---------- CSS Reset (scoped) ---------- */
+.dashboard-container {
+  box-sizing: border-box;
+
+  *, *::before, *::after { box-sizing: inherit; }
+}
+
+/* ---------- Container ---------- */
+.dashboard-container {
+  min-height: 100%;
+  padding: clamp(16px, 2.4vw, 28px);
+  background: radial-gradient(1200px 800px at 20% -10%, rgba(37, 99, 235, 0.15), transparent 60%),
+              radial-gradient(1000px 600px at 120% 20%, rgba(99, 102, 241, 0.12), transparent 55%),
+              $bg;
+  color: $text;
+  display: grid;
+  gap: clamp(16px, 2vw, 24px);
+}
+
+/* ---------- Header ---------- */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid $border;
+  border-radius: 16px;
+  padding: clamp(14px, 2vw, 18px) clamp(16px, 2.2vw, 22px);
+  box-shadow: $shadow;
+  backdrop-filter: saturate(120%) blur(6px);
+
+  h2 {
+    margin: 0;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    background: linear-gradient(90deg, #ffffff, #c7d2fe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+
+    &::after {
+      content: '• Admin';
+      font-size: 0.6em;
+      font-weight: 600;
+      color: $muted;
+      letter-spacing: 0.4px;
+    }
+  }
+
+  .logout-btn {
+    --btn-bg: #0b1222;
+    --btn-border: rgba(255, 255, 255, 0.12);
+
+    appearance: none;
+    border: 1px solid var(--btn-border);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)), var(--btn-bg);
+    color: $text;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: transform 0.1s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)), var(--btn-bg);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}
+
+/* ---------- Cards Grid ---------- */
+.cards {
+  display: grid;
+  gap: clamp(12px, 1.6vw, 18px);
+
+  /* 1 col on narrow, 2 on medium, 4 on large */
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+
+  @media (min-width: 540px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 920px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Individual Card ---------- */
+.card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)), $panel;
+  border: 1px solid $border;
+  border-radius: 16px;
+  padding: clamp(14px, 2.4vw, 20px);
+  box-shadow: $shadow;
+  isolation: isolate;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.2s ease;
+
+  /* Soft corner glow accent */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px -1px auto auto;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(80px 80px at 100% 0%, rgba(37, 99, 235, 0.25), transparent 70%);
+    z-index: -1;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.16);
+
+    &::before { opacity: 0.9; }
+  }
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: clamp(14px, 1.8vw, 16px);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #cbd5e1;
+  }
+
+  p {
+    margin: 0;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.4px;
+    color: #f8fafc;
+    text-shadow: 0 2px 18px rgba(37, 99, 235, 0.25);
+
+    /* Subtle pulsing for dynamic counts (optional)
+    animation: pulse 3.2s ease-in-out infinite;
+    */
+  }
+}
+
+/* ---------- Actions Row ---------- */
+.actions {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 12px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  button {
+    --btn-bg: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)), #0b1222;
+    --btn-border: rgba(255, 255, 255, 0.12);
+
+    appearance: none;
+    width: 100%;
+    border: 1px solid var(--btn-border);
+    background: var(--btn-bg);
+    color: $text;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    box-shadow: $shadow;
+    transition: transform 0.1s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+      background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03)), #0b1222;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  /* Primary emphasis for the first CTA */
+  button:first-child {
+    border-color: rgba($primary, 0.55);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)),
+      linear-gradient(135deg, rgba($primary, 0.35), rgba(37, 99, 235, 0.15));
+    box-shadow:
+      0 10px 30px rgba($primary, 0.35),
+      inset 0 0 0 1px rgba(255,255,255,0.06);
+
+    &:hover {
+      border-color: rgba($primary-600, 0.9);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05)),
+        linear-gradient(135deg, rgba($primary-600, 0.5), rgba(37,99,235,0.25));
+    }
+  }
+}
+
+/* ---------- Utilities ---------- */
+.hidden { display: none !important; }
+
+/* ---------- Optional Animations ---------- */
+@keyframes pulse {
+  0%, 100% { transform: translateZ(0) scale(1); opacity: 0.96; }
+  50% { transform: translateZ(0) scale(1.02); opacity: 1; }
+}
+
+/* ---------- High-Contrast Focus (a11y) ---------- */
+.dashboard-container :is(button, .logout-btn):focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba($primary, 0.25);
+  border-radius: 12px;
+}
+
+/* ---------- Light Theme (opt-in) ----------
+   Add .theme--light to a parent/container to switch.
+-------------------------------------------*/
+.theme--light {
+  .dashboard-container {
+    background: radial-gradient(1200px 800px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 60%),
+                radial-gradient(1000px 600px at 120% 20%, rgba(99, 102, 241, 0.08), transparent 55%),
+                #f6f7fb;
+    color: #0f172a;
+  }
+
+  .dashboard-header {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.06);
+
+    h2 {
+      background: linear-gradient(90deg, #0f172a, #334155);
+    }
+}
+}

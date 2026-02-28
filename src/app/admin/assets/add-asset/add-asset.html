@@ -1,0 +1,34 @@
+<h2>Add New Asset</h2>
+<form [formGroup]="assetForm" (ngSubmit)="save()">
+<input formControlName="assetId" placeholder="Asset ID" />
+<input formControlName="modelNo" placeholder="Model No" />
+<input formControlName="name" placeholder="Name" />
+<textarea formControlName="description" placeholder="Description"></textarea>
+<input formControlName="unitPrice" placeholder="Unit Price" />
+<div class="field">
+  <label>Date of Purchase</label>
+  <input type="date" formControlName="dateOfPurchase">
+</div>
+<select formControlName="category">
+  <option value="" disabled selected>Select Category</option>
+  <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+</select>
+<select formControlName="subCategory">
+  <option value="" disabled selected>Select Sub Category</option>
+  <option *ngFor="let s of subCategories" [value]="s">{{ s }}</option>
+</select>
+<select formControlName="supplier">
+  <option value="" disabled selected>Select Supplier</option>
+  <option *ngFor="let s of suppliers" [value]="s">{{ s }}</option>
+</select>
+<select formControlName="department">
+     <option value="" disabled selected>Select Department</option>
+<option *ngFor="let d of departments" [value]="d">{{ d }}</option>
+</select>
+<select formControlName="subDepartment">
+  <option value="" disabled selected>Select Sub Department</option>
+  <option *ngFor="let s of subDepartments" [value]="s">{{ s }}</option>
+</select>
+<button type="submit">Save</button>
+</form>
+ 
