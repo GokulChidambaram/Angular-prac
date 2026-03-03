@@ -1,0 +1,47 @@
+<div class="asset-page">
+  <div class="header-container">
+    <div class="title-group">
+      <h2>User Management</h2>
+      <span class="count-badge">{{ users.length }} Total Users</span>
+    </div>
+    <button class="add-button" (click)="addUser()">+ Add New User</button>
+  </div>
+
+  <div class="table-card">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Status</th>
+          <th class="actions-column">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{ u.userID }}</td>
+          <td class="asset-name">{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+          <td><span class="tag-label">{{ u.roleName }}</span></td>
+          <td>{{ u.department || 'N/A' }}</td>
+          <td>
+            <span class="status-pill" [attr.data-status]="u.status">
+              {{ u.status }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button class="btn-icon edit" (click)="editUser(u.userID)">Edit</button>
+            <button class="btn-icon delete" (click)="deleteUser(u.userID)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="users.length === 0" class="empty-state">
+      <p>No users found. Click "+ Add New User" to get started.</p>
+    </div>
+  </div>
+</div>

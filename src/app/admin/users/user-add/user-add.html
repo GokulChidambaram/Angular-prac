@@ -1,0 +1,48 @@
+<div class="edit-wrapper">
+  <div class="form-card">
+    <div class="form-header">
+      <div class="icon-circle"><span>👤</span></div>
+      <div class="text-group">
+        <h2>Add New User</h2>
+        <p>Register a new system user</p>
+      </div>
+    </div>
+
+    <form [formGroup]="userForm" (ngSubmit)="save()">
+      <div class="input-grid">
+        <div class="input-box">
+          <label>Full Name</label>
+          <input type="text" formControlName="name" placeholder="John Doe">
+        </div>
+
+        <div class="input-box">
+          <label>Email Address</label>
+          <input type="email" formControlName="email" placeholder="john@company.com">
+        </div>
+
+        <div class="input-box">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="Min 6 characters">
+        </div>
+
+        <div class="input-box">
+          <label>Assign Role</label>
+          <select formControlName="roleID">
+            <option [ngValue]="null" disabled>Select a Role</option>
+            <option *ngFor="let r of roles" [value]="r.roleID">{{ r.name }}</option>
+          </select>
+        </div>
+
+        <div class="input-box full-width">
+          <label>Department</label>
+          <input type="text" formControlName="department" placeholder="e.g. IT">
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button" class="btn-secondary" (click)="router.navigate(['/admin/users'])">Discard</button>
+        <button type="submit" class="btn-primary" [disabled]="userForm.invalid">Save User</button>
+      </div>
+    </form>
+  </div>
+</div>

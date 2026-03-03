@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UserEditComponent } from './user-edit';
 
-import { AddAssetComponent } from './add-asset';
+describe('UserEdit', () => {
+  let component: UserEditComponent;
+  let fixture: ComponentFixture<UserEditComponent>;
 
-describe('AddAssetComponent', () => {
-  let component: AddAssetComponent;
-  let fixture: ComponentFixture<AddAssetComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddAssetComponent]
+      imports: [UserEditComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddAssetComponent);
+    fixture = TestBed.createComponent(UserEditComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
