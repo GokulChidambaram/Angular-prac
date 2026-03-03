@@ -1,20 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
-
+@Injectable({
+  providedIn: 'root'
+})
 export class CategoryService {
-
-  private baseUrl = 'https://localhost:7274/api/categories';
+  private apiUrl = 'https://localhost:7274/api/Categories';
 
   constructor(private http: HttpClient) {}
 
-  getCategories() {
-
-    return this.http.get<{ categoryID: number; name: string }[]>(this.baseUrl);
-
+  // Add this method to fix TS2339
+  getCategories(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
-
 }
- 

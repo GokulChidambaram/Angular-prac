@@ -1,0 +1,29 @@
+<div class="edit-container">
+  <div class="edit-card" *ngIf="!isLoading">
+    <h2>Edit Category</h2>
+    <p class="subtitle">Modify the category name below.</p>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Category Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          [(ngModel)]="categoryName" 
+          name="categoryName" 
+          required
+          placeholder="e.g., Laptops"
+        >
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn-save">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="isLoading" class="loader-box">
+    <p>Fetching category details...</p>
+  </div>
+</div>

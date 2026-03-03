@@ -1,48 +1,108 @@
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Sidebar Styling */
 .sidebar {
-
-  width: 230px;
-
+  width: 260px;
   background: #2f3640;
-
   color: #fff;
-
-  padding: 20px;
-
+  display: flex;
+  flex-direction: column;
+  position: sticky; /* Keeps it visible while scrolling content */
+  top: 0;
+  height: 100vh;
 }
 
-.title {
-
-  margin-bottom: 20px;
-
+.sidebar-header {
+  padding: 30px 25px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-ul {
-
+.nav-links {
+  flex: 1; /* Pushes logout section down */
   list-style: none;
-
   padding: 0;
-
 }
 
-li {
-
-  padding: 10px;
-
+.nav-links li {
+  padding: 15px 25px;
   cursor: pointer;
-
+  transition: 0.2s;
+  color: #dcdde1;
 }
 
-li:hover {
-
+.nav-links li:hover, .nav-links li.active {
   background: #414b57;
-
+  color: #fff;
+  border-left: 4px solid #3498db;
 }
 
-.logout {
+/* Moving Logout Button slightly up */
+.logout-section {
+  padding: 0 20px 40px 20px; /* Increased bottom padding to move it up */
+}
 
-  margin-top: 30px;
-
+.logout-btn {
   width: 100%;
-
+  padding: 12px;
+  background: #e84118;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
- 
+
+/* Main Content Styling - VISIBILITY FIX */
+.main-content {
+  flex: 1; /* Takes up remaining width */
+  padding: 40px;
+  overflow-x: auto; /* Adds scrollbar if table is too wide */
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  padding: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding: 15px;
+  color: #7f8c8d;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #eee;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+/* Status Badges */
+.status.available {
+  background: #dff9fb;
+  color: #009432;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
