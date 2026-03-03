@@ -11,22 +11,27 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(data: any) {
-
     return this.http.post<any>(`${this.baseUrl}/login`, data);
-
   }
 
   register(data: any) {
-
     return this.http.post(`${this.baseUrl}/register`, data);
-
   }
 
-  saveToken(token: string) {
-
-    localStorage.setItem('token', token);
-
-  }
+ saveToken(token: string): void {
+ localStorage.setItem('token', token);
+ const payload = JSON.parse(atob(token.split('.')[1]));
+ // ✅ CORRECT ROLE EXTRACTION (CLAIM URI)
+ console.log('JWT Payload:', payload);
+ const role =
+   payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] ||
+   payload['role'];
+ if (role) {
+   localStorage.setItem('role', role);
+ } else {
+   console.warn('Role not found in JWT payload', payload);
+ }
+}
 
   getToken() {
 
