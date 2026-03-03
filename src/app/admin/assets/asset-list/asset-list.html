@@ -1,33 +1,51 @@
-<div class="header">
-<h2>Assets</h2>
-<button (click)="addAsset()">+ Add New Asset</button>
+<div class="asset-page">
+  <div class="header-container">
+    <div class="title-group">
+      <h2>Assets Inventory</h2>
+      <span class="count-badge">{{ assets.length }} Total Items</span>
+    </div>
+    <button class="add-button" (click)="addAsset()">+ Add New Asset</button>
+  </div>
+
+  <div class="table-card">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Asset ID (Tag)</th>
+          <th>Model No</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Unit Price</th>
+          <th>Purchase Date</th>
+          <th class="actions-column">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let a of assets">
+          <td>{{ a.assetID }}</td>
+          <td><span class="tag-label">{{ a.tag || 'N/A' }}</span></td>
+          <td>{{ a.modelNo || 'N/A' }}</td>
+          <td class="asset-name">{{ a.name }}</td>
+          <td>{{ a.categoryName }}</td>
+          <td>
+            <span class="status-pill" [attr.data-status]="a.status">
+              {{ a.status }}
+            </span>
+          </td>
+          <td class="price-cell">{{ a.cost | currency:'INR' }}</td>
+          <td>{{ a.purchaseDate | date:'dd-MM-yyyy' }}</td>
+          <td class="actions-cell">
+            <button class="btn-icon edit" (click)="editAsset(a.assetID)">Edit</button>
+            <button class="btn-icon delete" (click)="deleteAsset(a.assetID)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="assets.length === 0" class="empty-state">
+      <p>Array Length is 0 in the template. Check component variable name.</p>
+    </div>
+  </div>
 </div>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Asset ID</th>
-<th>Model No</th>
-<th>Name</th>
-<th>Status</th>
-<th>Unit Price</th>
-<th>Date</th>
-<th>Edit</th>
-<th>Delete</th>
-</tr>
-</thead>
-<tbody>
-<tr *ngFor="let a of assets">
-<td>{{ a.id }}</td>
-<td>{{ a.assetId }}</td>
-<td>{{ a.modelNo }}</td>
-<td>{{ a.name }}</td>
-<td>{{ a.status }}</td>
-<td>{{ a.price }}</td>
-<td>{{ a.date }}</td>
-<td>Edit</td>
-<td>Delete</td>
-</tr>
-</tbody>
-</table>
- 

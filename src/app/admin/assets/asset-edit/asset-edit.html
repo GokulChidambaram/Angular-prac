@@ -1,0 +1,62 @@
+<div class="edit-wrapper">
+  <div class="form-card">
+    <div class="form-header">
+      <div class="icon-circle">
+        <span class="edit-icon">📝</span>
+      </div>
+      <div class="text-group">
+        <h2>Edit Asset Details</h2>
+        <p>Asset ID: #{{ assetId }}</p>
+      </div>
+    </div>
+
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <div class="input-grid">
+        <div class="input-box">
+          <label>Asset Name</label>
+          <input type="text" formControlName="name" placeholder="Enter name">
+        </div>
+
+        <div class="input-box">
+          <label>Model Number</label>
+          <input type="text" formControlName="modelNo" placeholder="e.g. HP-ELITE-840">
+        </div>
+
+        <div class="input-box">
+          <label>Category Name</label>
+          <input type="text" formControlName="categoryName" placeholder="e.g. Laptop, Furniture">
+        </div>
+
+        <div class="input-box">
+          <label>Asset Tag</label>
+          <input type="text" formControlName="tag" placeholder="TAG-001">
+        </div>
+
+        <div class="input-box">
+          <label>Unit Cost (₹)</label>
+          <input type="number" formControlName="cost">
+        </div>
+
+        <div class="input-box">
+          <label>Purchase Date</label>
+          <input type="date" formControlName="purchaseDate">
+        </div>
+
+        <div class="input-box full-width">
+          <label>Operational Status</label>
+          <select formControlName="status">
+            <option value="Available">Available</option>
+            <option value="Assigned">Assigned</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Retired">Retired</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button" class="btn-secondary" (click)="router.navigate(['/admin/assets'])">Discard</button>
+        <button type="submit" class="btn-primary" [disabled]="editForm.invalid">Update Asset</button>
+      </div>
+    </form>
+  </div>
+</div>
