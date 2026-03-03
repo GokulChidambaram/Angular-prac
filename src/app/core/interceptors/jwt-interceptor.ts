@@ -9,8 +9,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   // ✅ DO NOT attach token for auth endpoints
 
   if (
-    req.url.includes('/api/Auth/login') ||
-    req.url.includes('/api/Auth/register')
+    req.url.includes('/api/Auth/login') 
 
   ) {
     return next(req);
