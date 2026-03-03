@@ -1,0 +1,119 @@
+/* Container & Layout */
+.container {
+  padding: 2rem;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+}
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  thead {
+    background-color: #f1f5f9;   
+    th {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+      border-bottom: 1px solid #e2e8f0;
+    }
+  }
+  tbody {
+    tr {
+      transition: background-color 0.2s;      
+      &:hover {
+        background-color: #f8fafc;
+      }
+      td {
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+      }
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+}
+/* Buttons */
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-add {
+  background-color: #4f46e5; // Indigo 600
+  color: white;
+  padding: 0.75rem 1.5rem;
+  
+  &:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+  }
+}
+
+.btn-edit {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  margin-right: 0.5rem;
+  border: 1px solid #e2e8f0;
+
+  &:hover {
+    background-color: #e2e8f0;
+  }
+}
+
+.btn-delete {
+  background-color: #fee2e2;
+  color: #b91c1c;
+
+  &:hover {
+    background-color: #fecaca;
+  }
+}
+
+/* State Handlers */
+.loader, .no-data {
+  text-align: center;
+  padding: 4rem;
+  background: white;
+  border-radius: 12px;
+  color: #64748b;
+  font-size: 1.1rem;
+  border: 2px dashed #e2e8f0;
+}
+
+.no-data {
+  font-style: italic;
+}

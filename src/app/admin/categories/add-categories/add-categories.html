@@ -1,0 +1,31 @@
+<div class="form-wrapper">
+  <div class="form-card">
+    <div class="form-header">
+      <h2>Add New Category</h2>
+      <p>Create a new classification for your assets.</p>
+    </div>
+
+    <div class="form-body">
+      <div class="input-group">
+        <label>Category Name</label>
+        <input 
+          type="text" 
+          [(ngModel)]="categoryName" 
+          placeholder="e.g. Electronics, Furniture, Software"
+          class="form-control">
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn-cancel" (click)="router.navigate(['/admin/categories'])">
+        Cancel
+      </button>
+      <button 
+        class="btn-save" 
+        (click)="onSubmit()" 
+        [disabled]="!categoryName.trim()">
+        Save Category
+      </button>
+    </div>
+  </div>
+</div>

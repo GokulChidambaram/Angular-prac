@@ -103,25 +103,23 @@ export const adminRoutes: Routes = [
         loadComponent: () =>
           import('./assets/asset-edit/asset-edit').then(m => m.AssetEditComponent)
       },
-
-      // --- 👇 NEW: Users Module Section ---
+      // --- CATEGORIES (ADD THESE NOW) ---
       {
-        path: 'users',
+        path: 'categories',
         loadComponent: () =>
-          import('./users/user-list/user-list').then(m => m.UserListComponent)
+          import('./categories/categories-list/categories-list').then(m => m.CategoryListComponent)
       },
       {
-        path: 'users/add',
-        loadComponent: () =>
-          import('./users/user-add/user-add').then(m => m.UserAddComponent)
-      },
+  path: 'categories/add',
+  loadComponent: () =>
+    import('./categories/add-categories/add-categories') // Folder/File name match
+      .then(m => m.AddCategoriesComponent)
+},
       {
-        path: 'users/edit/:id',
+        path: 'categories/edit/:id',
         loadComponent: () =>
-          import('./users/user-edit/user-edit').then(m => m.UserEditComponent)
+          import('./categories/categories-edit/categories-edit').then(m => m.CategoriesEditComponent)
       },
-
-      // --- Default Redirect ---
       {
         path: '',
         redirectTo: 'assets',

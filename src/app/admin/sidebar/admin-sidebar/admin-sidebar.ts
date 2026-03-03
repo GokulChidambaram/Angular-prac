@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth';
-
+import { AuthService } from '../../../core/services/auth';;
 @Component({
   selector: 'app-admin-sidebar',
   standalone: true,
@@ -13,16 +12,9 @@ export class AdminSidebarComponent {
     private router: Router,
     private auth: AuthService
   ) {}
-
   goToAssets(): void {
     this.router.navigate(['/admin/assets']);
   }
-
-  // 👇 ADD THIS METHOD
-  goToUsers(): void {
-    this.router.navigate(['/admin/users']);
-  }
-
   goToCategories(): void {
     this.router.navigate(['/admin/categories']);
   }
