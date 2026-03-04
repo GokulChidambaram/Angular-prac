@@ -22,6 +22,14 @@ export class AdminSidebarComponent {
   goToUsers(): void {
     this.router.navigate(['/admin/users']);
   }
+  goToRoles(): void {
+  this.router.navigate(['/admin/roles']);
+  }
+  // --- ADD THIS METHOD ---
+  goToReports(): void {
+    this.router.navigate(['/admin/reports']); 
+    // Note: If your admin routes are prefixed, use ['/admin/reports']
+  }
 
   logout(): void {
     this.auth.logout();

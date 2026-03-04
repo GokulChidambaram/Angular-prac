@@ -1,0 +1,31 @@
+<div class="edit-role-container">
+  <div class="header-row">
+    <h1 class="title">Edit Role</h1>
+  </div>
+
+  <div class="form-card">
+    <form (ngSubmit)="onSubmit()" #roleForm="ngForm">
+      <div class="form-group">
+        <label for="roleName">Role Name</label>
+        <input 
+          type="text" 
+          id="roleName"
+          name="roleName" 
+          [(ngModel)]="roleName" 
+          [placeholder]="roleName ? '' : 'Loading name...'"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="btn-cancel" (click)="cancel()">
+          Cancel
+        </button>
+        <button type="submit" class="btn-update" [disabled]="!roleForm.valid || isSubmitting">
+          {{ isSubmitting ? 'Updating...' : 'Update Role' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

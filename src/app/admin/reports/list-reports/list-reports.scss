@@ -1,0 +1,70 @@
+.report-wrapper {
+  padding: 30px;
+  background-color: #fff;
+
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+
+    .page-title { font-size: 22px; color: #333; margin: 0; }
+    .btn-print { background: #00bcd4; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; }
+  }
+
+  .filter-container {
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    margin-bottom: 30px;
+
+    .filter-group {
+      display: flex;
+      gap: 25px;
+      align-items: flex-end;
+
+      .date-input {
+        display: flex;
+        flex-direction: column;
+        label { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+      }
+    }
+  }
+
+  .btn-submit { background: #ef5350; color: white; border: none; padding: 10px 30px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+  .btn-reset { background: #4caf50; color: white; border: none; padding: 10px 30px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+
+  .report-content {
+    .range-info { font-weight: bold; color: #555; }
+    .asset-total { margin: 20px 0; font-size: 20px; }
+  }
+
+  .status-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      background-color: #4caf50; // The specific green color from your image
+      color: white;
+      text-align: center;
+      padding: 12px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    td {
+      text-align: center;
+      padding: 12px;
+      border: 1px solid #ddd;
+      font-weight: bold;
+    }
+  }
+}
+
+// Ensure the print button is hidden during actual printing
+@media print {
+  .btn-print, .filter-container { display: none !important; }
+}

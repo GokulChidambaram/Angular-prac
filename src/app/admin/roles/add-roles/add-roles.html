@@ -1,0 +1,28 @@
+<div class="add-role-container">
+  <div class="header-row">
+    <h1 class="title">Add New Role</h1>
+  </div>
+
+  <div class="form-card">
+    <form (ngSubmit)="onSubmit()" #roleForm="ngForm">
+      <div class="form-group">
+        <label>Role Name</label>
+        <input 
+          type="text" 
+          name="roleName" 
+          [(ngModel)]="this.roleName" 
+          placeholder="Enter Role Name" 
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn-save" [disabled]="!roleForm.valid || isSubmitting">
+          {{ isSubmitting ? 'Saving...' : 'Save Role' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="category-management-container">
+  <div class="header-row">
+    <h1 class="title">Role Management</h1>
+    <button class="btn-add-category" routerLink="add">
+  + Add Role
+</button>
+  </div>
+
+  <div class="content-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>CREATED AT</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of roles">
+          <td>{{ role.roleID }}</td> 
+          <td class="name-cell">{{ role.name }}</td>
+          <td>{{ role.createdAt | date:'short' }}</td>
+          <td class="action-cells">
+          <button class="btn-edit" [routerLink]="['edit', role.roleID]">Edit</button>
+            <button class="btn-delete" (click)="deleteRole(role.roleID)">Delete</button>
+          </td>
+        </tr>
+        
+        <tr *ngIf="roles.length === 0">
+          <td colspan="4" class="no-data" style="text-align: center; padding: 20px;">
+            Loading roles...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

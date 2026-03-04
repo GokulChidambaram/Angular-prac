@@ -1,0 +1,46 @@
+<div class="report-wrapper">
+    <div class="header-section">
+    <h2 class="page-title">Asset Status Report</h2>
+  </div>
+  <div class="filter-container">
+    <div class="filter-group">
+        <div class="date-input">
+        <label>Start Date</label>
+      <input type="date" [(ngModel)]="startDate">
+      </div>
+      <div class="date-input">
+        <label>End Date</label>
+        <input type="date" [(ngModel)]="endDate">
+      </div>
+      <button class="btn-submit" (click)="generateReport()" [disabled]="isSearching">
+        {{ isSearching ? 'Processing...' : 'Submit' }}
+      </button>
+      <button class="btn-reset" (click)="reset()">Reset</button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoaded" class="report-content">
+    <p class="range-info">Showing Data for: {{startDate}} to {{endDate}}</p>
+    
+    <h3 class="asset-total">Total Assets : {{stats.total}}</h3>
+
+    <table class="status-summary-table">
+      <thead>
+        <tr>
+          <th style="background-color: #4CAF50; color: white;">Available</th>
+          <th style="background-color: #4CAF50; color: white;">In Use (Assigned)</th>
+          <th style="background-color: #4CAF50; color: white;">In Repair</th>
+          <th style="background-color: #4CAF50; color: white;">Under Review</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{stats.available}}</td>
+          <td>{{stats.assigned}}</td>
+          <td>{{stats.inRepair}}</td>
+          <td>{{stats.underReview}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
