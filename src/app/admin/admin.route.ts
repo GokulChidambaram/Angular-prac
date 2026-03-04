@@ -110,16 +110,19 @@ export const adminRoutes: Routes = [
           import('./categories/categories-list/categories-list').then(m => m.CategoryListComponent)
       },
       {
-  path: 'categories/add',
-  loadComponent: () =>
-    import('./categories/add-categories/add-categories') // Folder/File name match
-      .then(m => m.AddCategoriesComponent)
-},
+        path: 'categories/add',
+        loadComponent: () =>
+          import('./categories/add-categories/add-categories') // Folder/File name match
+            .then(m => m.AddCategoriesComponent)
+      },
       {
         path: 'categories/edit/:id',
         loadComponent: () =>
           import('./categories/categories-edit/categories-edit').then(m => m.CategoriesEditComponent)
       },
+      { path: 'users', loadComponent: () => import('./users/user-list/user-list').then(m => m.UserListComponent) },
+      { path: 'users/add', loadComponent: () => import('./users/user-add/user-add').then(m => m.UserAddComponent) }, 
+      { path: 'users/edit/:id', loadComponent: () => import('./users/user-edit/user-edit').then(m => m.UserEditComponent) },
       {
         path: '',
         redirectTo: 'assets',
