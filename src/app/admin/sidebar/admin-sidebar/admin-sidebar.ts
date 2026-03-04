@@ -19,6 +19,10 @@ export class AdminSidebarComponent {
     this.router.navigate(['/admin/categories']);
   }
 
+  goToUsers(): void {
+    this.router.navigate(['/admin/users']);
+  }
+
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
