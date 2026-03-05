@@ -1,0 +1,39 @@
+<div class="asset-page">
+  <div class="header-container">
+    <div class="title-group">
+      <h2>My Assigned Assets</h2>
+      <span class="count-badge">{{ myAssets.length }} Total Items</span>
+    </div>
+    <button class="add-button" (click)="requestNewAsset()">+ Request New Equipment</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading your equipment...</p>
+  </div>
+
+  <div class="table-card" *ngIf="!isLoading">
+    <table class="modern-table" *ngIf="myAssets.length > 0">
+      <thead>
+        <tr>
+          <th>Asset ID (Tag)</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Model No</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asset of myAssets">
+          <td><span class="tag-label">{{ asset.tag || 'N/A' }}</span></td>
+          <td class="asset-name">{{ asset.name }}</td>
+          <td>{{ asset.categoryName }}</td>
+          <td>{{ asset.modelNo || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="myAssets.length === 0" class="empty-state">
+      <h3>No Assets Assigned</h3>
+      <p>You don't have any equipment assigned to your account yet.</p>
+    </div>
+  </div>
+</div>
