@@ -1,1 +1,17 @@
-<p>employee-sidebar works!</p>
+<div class="app-container">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h3 class="title">ASSET TRACK</h3>
+    </div>
+    
+    <ul class="nav-links">
+      <li (click)="goToMyAssets()" routerLinkActive="active">My Assets</li>
+      <li (click)="goToRequestAsset()" routerLinkActive="active">Request Asset</li>
+      <li (click)="goToMyRequests()" routerLinkActive="active">My Requests</li>
+    </ul>
+
+    <div class="logout-section">
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+</div>

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { adminGuard } from './core/guards/auth-guard';
+import { adminGuard,employeeGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
@@ -46,6 +46,12 @@ export const routes: Routes = [
 
         .then(m => m.adminRoutes)
 
+  },{
+    path: 'employee',
+    canActivate: [employeeGuard], // 👈 UNCOMMENT THIS LINE
+    loadChildren: () =>
+      import('./employee/employee.route')
+        .then(m => m.employeeRoutes)
   },
 
   // 🔁 DEFAULT
@@ -58,9 +64,16 @@ export const routes: Routes = [
 
     pathMatch: 'full'
 
-  },
+  },{
+  path: 'employee',
+  // You might want to create an 'authGuard' that just checks if any user is logged in
+  // canActivate: [authGuard], 
+  loadChildren: () =>
+    import('./employee/employee.route')
+      .then(m => m.employeeRoutes)
+},
 
-  // ❌ FALLBACK
+  //  FALLBACK
 
   {
 

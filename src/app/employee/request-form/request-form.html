@@ -1,1 +1,42 @@
-<p>request-form works!</p>
+<div class="asset-page">
+  <div class="header-container">
+    <div class="title-group">
+      <h2>Request New Asset</h2>
+      <p>Fill out the form below to request equipment from the Manager.</p>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="category">What do you need?</label>
+        <select id="category" formControlName="categoryID" class="form-control">
+          <option value="" disabled selected>-- Select an Item Type --</option>
+          <option *ngFor="let cat of categories" [value]="cat.categoryID">
+            {{ cat.name }}
+          </option>
+        </select>
+        <small class="error" *ngIf="requestForm.get('categoryID')?.touched && requestForm.get('categoryID')?.invalid">
+          Please select an item type.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">Why do you need it?</label>
+        <textarea id="reason" formControlName="reason" rows="4" class="form-control" 
+                  placeholder="E.g., My current laptop screen is flickering..."></textarea>
+        <small class="error" *ngIf="requestForm.get('reason')?.touched && requestForm.get('reason')?.invalid">
+          Please provide a reason (minimum 5 characters).
+        </small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="add-button" [disabled]="requestForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

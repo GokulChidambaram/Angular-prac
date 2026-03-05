@@ -15,7 +15,7 @@ export const employeeRoutes: Routes = [
         path: 'request-form',
         loadComponent: () => 
           import('./request-form/request-form').then(m => m.RequestForm)
-      }
+      },
       {
         path: 'my-requests',
         loadComponent: () => 

@@ -1,1 +1,45 @@
-<p>my-requests works!</p>
+<div class="asset-page">
+  <div class="header-container">
+    <div class="title-group">
+      <h2>My Asset Requests</h2>
+      <span class="count-badge">{{ requests.length }} Total Requests</span>
+    </div>
+    <button class="add-button" (click)="requestNewAsset()">+ New Request</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading requests...</p>
+  </div>
+
+  <div class="table-card" *ngIf="!isLoading">
+    <table class="modern-table" *ngIf="requests.length > 0">
+      <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>Requested Item</th>
+          <th>Reason</th>
+          <th>Date Submitted</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of requests">
+          <td><span class="tag-label">#REQ-{{ req.requestID }}</span></td>
+          <td class="asset-name">{{ req.categoryName }}</td>
+          <td class="reason-col">{{ req.reason }}</td>
+          <td>{{ req.createdAt | date:'dd-MM-yyyy' }}</td>
+          <td>
+            <span class="status-pill" [attr.data-status]="req.status">
+              {{ req.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="requests.length === 0" class="empty-state">
+      <h3>No Requests Found</h3>
+      <p>You haven't made any asset requests yet.</p>
+    </div>
+  </div>
+</div>
