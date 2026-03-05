@@ -47,7 +47,11 @@ export const adminRoutes: Routes = [
       { 
         path: 'users/add', loadComponent: () =>
            import('./users/user-add/user-add').then(m => m.UserAddComponent)
-       }, 
+       }, {
+        path: 'users/edit/:id',
+        loadComponent: () =>
+          import('./users/user-edit/user-edit').then(m => m.UserEditComponent)
+      },
       // --- ROLES MODULE ---
 { 
   path: 'roles', 

@@ -21,6 +21,10 @@ export const employeeRoutes: Routes = [
         loadComponent: () => 
           import('./my-requests/my-requests').then(m => m.MyRequests)
       },
+      {
+        path: 'my-issues',
+        loadComponent: () => import('./my-issues/my-issues').then(m => m.MyIssues)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }

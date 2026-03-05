@@ -1,16 +1,4 @@
 <div class="asset-page">
-  <div class="header-container">
-    <div class="title-group">
-      <h2>My Assigned Assets</h2>
-      <span class="count-badge">{{ myAssets.length }} Total Items</span>
-    </div>
-    <button class="add-button" (click)="requestNewAsset()">+ Request New Equipment</button>
-  </div>
-
-  <div *ngIf="isLoading" class="loading-state">
-    <p>Loading your equipment...</p>
-  </div>
-
   <div class="table-card" *ngIf="!isLoading">
     <table class="modern-table" *ngIf="myAssets.length > 0">
       <thead>
@@ -19,7 +7,7 @@
           <th>Name</th>
           <th>Category</th>
           <th>Model No</th>
-        </tr>
+          <th>Action</th> </tr>
       </thead>
       <tbody>
         <tr *ngFor="let asset of myAssets">
@@ -27,13 +15,46 @@
           <td class="asset-name">{{ asset.name }}</td>
           <td>{{ asset.categoryName }}</td>
           <td>{{ asset.modelNo || 'N/A' }}</td>
+          <td>
+            <button class="btn-issue" (click)="openIssueModal(asset)" 
+                    style="background: #ff4d4f; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+              Report Issue
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
+    </div>
+</div>
 
-    <div *ngIf="myAssets.length === 0" class="empty-state">
-      <h3>No Assets Assigned</h3>
-      <p>You don't have any equipment assigned to your account yet.</p>
+<div class="modal-overlay" *ngIf="selectedAssetForIssue" 
+     style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  
+  <div class="modal-card" style="background: white; padding: 25px; border-radius: 8px; width: 400px; max-width: 90%;">
+    <h3 style="margin-top: 0; color: #d32f2f;">Report Asset Issue</h3>
+    <p><strong>Asset:</strong> {{ selectedAssetForIssue.name }} (Tag: {{ selectedAssetForIssue.tag }})</p>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+      <label style="display: block; margin-bottom: 5px; font-weight: bold;">Describe the problem:</label>
+      <textarea rows="4" [(ngModel)]="issueDescription" 
+                placeholder="E.g., The screen is flickering on startup..."
+                style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 20px;">
+      <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+        <input type="checkbox" [(ngModel)]="requiresRepair">
+        Does this asset require physical repair?
+      </label>
+    </div>
+
+    <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 10px;">
+      <button (click)="closeIssueModal()" [disabled]="isSubmittingIssue"
+              style="padding: 8px 15px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer;">Cancel</button>
+      <button (click)="submitIssue()" [disabled]="isSubmittingIssue || !issueDescription"
+              style="padding: 8px 15px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
+        {{ isSubmittingIssue ? 'Sending...' : 'Submit Issue' }}
+      </button>
     </div>
   </div>
 </div>

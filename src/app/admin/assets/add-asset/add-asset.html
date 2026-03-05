@@ -6,7 +6,7 @@
 <select formControlName="categoryID">
 <option value="" disabled>Select Category</option>
 <option *ngFor="let c of categories" [value]="c.categoryID">
-
+ 
       {{ c.name }}
 </option>
 </select>
@@ -22,4 +22,3 @@
 <input formControlName="supplierName" placeholder="Supplier Name" />
 <button type="submit">Save</button>
 </form>
- 

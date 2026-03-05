@@ -27,6 +27,10 @@ export class EmployeeSidebar {
     this.router.navigate(['/employee/my-requests']);
   }
 
+  goToMyIssues(): void {
+    this.router.navigate(['/employee/my-issues']);
+  }
+
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);

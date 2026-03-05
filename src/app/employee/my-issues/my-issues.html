@@ -1,0 +1,44 @@
+<div class="asset-page">
+  <div class="header-container">
+    <div class="title-group">
+      <h2>My Reported Issues</h2>
+      <span class="count-badge">{{ issues.length }} Total Issues</span>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading your reported issues...</p>
+  </div>
+
+  <div class="table-card" *ngIf="!isLoading">
+    <table class="modern-table" *ngIf="issues.length > 0">
+      <thead>
+        <tr>
+          <th>Issue ID</th>
+          <th>Asset Name</th>
+          <th>Description</th>
+          <th>Date Reported</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let issue of issues">
+          <td><span class="tag-label">#ISS-{{ issue.issueID }}</span></td>
+          <td class="asset-name">{{ issue.assetName }}</td>
+          <td class="reason-col">{{ issue.description }}</td>
+          <td>{{ issue.reportedDate | date:'dd-MM-yyyy' }}</td>
+          <td>
+            <span class="status-pill" [attr.data-status]="issue.status">
+              {{ issue.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="issues.length === 0" class="empty-state">
+      <h3>No Issues Found</h3>
+      <p>You haven't reported any broken equipment. Great!</p>
+    </div>
+  </div>
+</div>
