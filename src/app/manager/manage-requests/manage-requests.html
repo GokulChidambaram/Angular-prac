@@ -1,0 +1,52 @@
+<div class="manage-requests-container">
+  <h2>Pending Asset Requests</h2>
+
+  <table class="request-table">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Category</th>
+        <th>Reason</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of pendingRequests">
+        <td>{{ req.employeeName }}</td>
+        <td><strong>{{ req.categoryName }}</strong></td>
+        <td>{{ req.reason }}</td>
+        <td>{{ req.createdAt | date:'short' }}</td>
+        <td>
+          <button class="btn-approve" (click)="openApproveModal(req)">Approve & Assign</button>
+        </td>
+      </tr>
+      <tr *ngIf="pendingRequests.length === 0">
+        <td colspan="5" class="empty-state">No pending requests found.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal-card">
+      <h3>Approve Request #{{ selectedRequest?.requestID }}</h3>
+      <p>Assigning a <strong>{{ selectedRequest?.categoryName }}</strong> to <strong>{{ selectedRequest?.employeeName }}</strong></p>
+
+      <div class="form-group">
+        <label>Select Available Asset:</label>
+        <select [(ngModel)]="selectedAssetId" class="form-control">
+          <option [ngValue]="null" disabled>-- Select Asset --</option>
+          <option *ngFor="let asset of availableAssets" [value]="asset.assetID">
+            {{ asset.name }} (Tag: {{ asset.tag }})
+          </option>
+        </select>
+        <p *ngIf="availableAssets.length === 0" class="error-text">No available assets in this category.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeModal()">Cancel</button>
+        <button class="btn-confirm" [disabled]="!selectedAssetId" (click)="confirmApproval()">Confirm Assignment</button>
+      </div>
+    </div>
+  </div>
+</div>

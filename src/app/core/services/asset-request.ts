@@ -17,4 +17,15 @@ export class AssetRequestService {
   createRequest(data: { categoryID: number, reason: string }): Observable<any> {
     return this.http.post(this.baseUrl, data);
   }
+
+  getPendingRequests() {
+    return this.http.get<any[]>(`${this.baseUrl}/pending`);
+  }
+
+  // Manager: Approves request and assigns the chosen AssetID
+approveRequest(requestId: number, assetId: number) {
+  return this.http.post(`${this.baseUrl}/approve/${requestId}`, assetId, {
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
 }

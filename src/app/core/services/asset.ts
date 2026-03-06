@@ -21,4 +21,8 @@ export class AssetService {
   deleteAsset(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  getAvailableByCategory(categoryId: number) {
+    return this.http.get<any[]>(`${this.baseUrl}/available/${categoryId}`);
+  }
 }

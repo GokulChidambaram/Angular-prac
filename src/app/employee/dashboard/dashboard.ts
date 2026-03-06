@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,14 +16,14 @@ export class Dashboard implements OnInit {
   public myAssets: any[] = [];
   public isLoading: boolean = true;
   
-  // Modal Variables for "Raise Issue"
+  // Modal Variables
   public selectedAssetForIssue: any = null;
   public issueDescription: string = '';
   public requiresRepair: boolean = false;
   public isSubmittingIssue: boolean = false;
 
-  // 🌟 THE UPDATED ENDPOINT 🌟
-  private apiUrl = 'https://localhost:7274/api/Assets/my-assets'; 
+  // 🌟 FIXED: Points to the base API, backend handles filtering
+  private apiUrl = 'https://localhost:7274/api/Assets'; 
 
   constructor(
     private http: HttpClient,
@@ -36,27 +36,31 @@ export class Dashboard implements OnInit {
     this.fetchMyAssets();
   }
 
-  fetchMyAssets(): void {
-    this.http.get<any[]>(this.apiUrl).subscribe({
-      next: (res) => {
-        console.log('My Assets Loaded:', res);
-        this.myAssets = [...res]; 
+fetchMyAssets(): void {
+  this.isLoading = true; // Angular checks this first
+  this.cdr.markForCheck();
+  this.http.get<any[]>(this.apiUrl).subscribe({
+    next: (res) => {
+      this.myAssets = res;
+      
+      // Wrap the state change in setTimeout to avoid NG0100
+      setTimeout(() => {
         this.isLoading = false;
-        this.cdr.detectChanges(); 
-      },
-      error: (err) => {
-        console.error('Error fetching your assets', err);
+        this.cdr.markForCheck();
+        
+      });
+    },
+    error: (err) => {
+      console.error('Error fetching assets', err);
+      
+      setTimeout(() => {
         this.isLoading = false;
-        this.cdr.detectChanges();
-      }
-    });
-  }
+        this.cdr.markForCheck();
+      });
+    }
+  });
+}
 
-  requestNewAsset(): void {
-    this.router.navigate(['/employee/request-form']);
-  }
-
-  // --- Modal Logic ---
   openIssueModal(asset: any): void {
     this.selectedAssetForIssue = asset;
     this.issueDescription = '';
@@ -69,31 +73,33 @@ export class Dashboard implements OnInit {
     this.cdr.detectChanges();
   }
 
-  submitIssue(): void {
-    if (!this.issueDescription.trim()) return;
-    this.isSubmittingIssue = true;
+ submitIssue(): void {
+  if (!this.issueDescription.trim() || !this.selectedAssetForIssue) return;
+  this.isSubmittingIssue = true;
 
-    const currentUserId = Number(localStorage.getItem('userId')) || 0; 
+  const currentUserId = Number(localStorage.getItem('userId')); 
 
-    const payload = {
-      assetID: this.selectedAssetForIssue.assetID,
-      reportedByUserID: currentUserId,
-      description: this.issueDescription,
-      requiresRepair: this.requiresRepair
-    };
+  // Ensure these keys match your C# IssueCreateDto properties exactly
+  const payload = {
+    AssetID: this.selectedAssetForIssue.assetID,
+    ReportedByUserID: currentUserId, 
+    Description: this.issueDescription,
+    RequiresRepair: true // 👈 Use PascalCase to match C# DTO
+  };
 
-    this.issueService.reportIssue(payload).subscribe({
-      next: () => {
-        alert('Issue reported successfully!');
-        this.isSubmittingIssue = false;
-        this.closeIssueModal();
-      },
-      error: (err) => {
-        console.error('Failed to report issue', err);
-        alert('Failed to report issue. Try again later.');
-        this.isSubmittingIssue = false;
-        this.cdr.detectChanges();
-      }
-    });
-  }
+  this.issueService.reportIssue(payload).subscribe({
+    next: () => {
+      alert('Issue reported successfully!');
+      this.isSubmittingIssue = false;
+      this.closeIssueModal();
+      this.fetchMyAssets(); 
+    },
+    error: (err) => {
+      console.error('Frontend Error:', err);
+      alert('Error: ' + (err.error?.message || 'Check console for details'));
+      this.isSubmittingIssue = false;
+      this.cdr.detectChanges();
+    }
+  });
+}
 }

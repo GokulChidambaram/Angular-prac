@@ -34,20 +34,25 @@ export class LoginComponent {
       next: (res) => {
         console.log('LOGIN RESPONSE:', res);
         
-        // 1. Save credentials to localStorage via AuthService
+        // 1. Save Token for API Authorization
         this.auth.saveToken(res.token);
         
-        // 2. We use the role directly from the API response for the first redirect
+        // 🌟 2. PERMANENT FIX: Save UserID to localStorage
+        // This ensures the Employee Dashboard can report issues with a valid ID.
+        localStorage.setItem('userId', res.user.userID.toString()); 
+        
+        // 3. Get role from response for routing
         const userRole = res.user.role; 
         console.log('USER ROLE:', userRole);
 
-        // 3. Role-Based Routing Logic
+        // 4. Role-Based Routing Logic
         if (userRole === 'Admin') {
-          console.log('Routing to ADMIN AREA');
           this.router.navigate(['/admin/assets']);
-        } else {
-          // Now routing properly to your new Employee Portal!
-          console.log('Routing to EMPLOYEE DASHBOARD');
+        } 
+        else if (userRole === 'Manager') {
+          this.router.navigate(['/manager/assets']);
+        } 
+        else {
           this.router.navigate(['/employee/dashboard']);
         }
       },
