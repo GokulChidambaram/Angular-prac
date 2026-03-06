@@ -1,46 +1,80 @@
 <div class="report-wrapper">
-    <div class="header-section">
+  <div class="header-section">
     <h2 class="page-title">Asset Status Report</h2>
   </div>
+ 
   <div class="filter-container">
     <div class="filter-group">
-        <div class="date-input">
+      <div class="date-input">
         <label>Start Date</label>
-      <input type="date" [(ngModel)]="startDate">
+        <input type="date" [(ngModel)]="startDate">
       </div>
       <div class="date-input">
         <label>End Date</label>
         <input type="date" [(ngModel)]="endDate">
       </div>
       <button class="btn-submit" (click)="generateReport()" [disabled]="isSearching">
-        {{ isSearching ? 'Processing...' : 'Submit' }}
+        {{ isSearching ? 'Loading...' : 'Submit' }}
       </button>
       <button class="btn-reset" (click)="reset()">Reset</button>
     </div>
   </div>
-
-  <div *ngIf="isLoaded" class="report-content">
+ 
+  <div *ngIf="isLoaded" class="report-content fade-in">
     <p class="range-info">Showing Data for: {{startDate}} to {{endDate}}</p>
-    
-    <h3 class="asset-total">Total Assets : {{stats.total}}</h3>
+   
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <div class="icon-circle">📊</div>
+        <div class="stat-info">
+          <span class="stat-value">{{stats.total}}</span>
+          <span class="stat-label">Total Assets</span>
+        </div>
+      </div>
+ 
+      <div class="stat-card available">
+        <div class="icon-circle">✅</div>
+        <div class="stat-info">
+          <span class="stat-value">{{stats.available}}</span>
+          <span class="stat-label">Available</span>
+        </div>
+      </div>
+ 
+      <div class="stat-card assigned">
+        <div class="icon-circle">👤</div>
+        <div class="stat-info">
+          <span class="stat-value">{{stats.assigned}}</span>
+          <span class="stat-label">Assigned</span>
+        </div>
+      </div>
 
+     <div class="stat-card repair">
+        <div class="icon-circle">🛠️</div>
+        <div class="stat-info">
+          <span class="stat-value">{{stats.underReview}}</span>
+          <span class="stat-label">Under Review</span>
+        </div>
+      </div>
+    </div>
+ 
+    <h3 class="detail-title">Detailed Summary</h3>
     <table class="status-summary-table">
       <thead>
         <tr>
-          <th style="background-color: #4CAF50; color: white;">Available</th>
-          <th style="background-color: #4CAF50; color: white;">In Use (Assigned)</th>
-          <th style="background-color: #4CAF50; color: white;">In Repair</th>
-          <th style="background-color: #4CAF50; color: white;">Under Review</th>
+          <th>Available</th>
+          <th>In Use (Assigned)</th>
+          <th>Under Review</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{stats.available}}</td>
           <td>{{stats.assigned}}</td>
-          <td>{{stats.inRepair}}</td>
           <td>{{stats.underReview}}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+ 
+ 
