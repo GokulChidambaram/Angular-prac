@@ -8,15 +8,29 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    flex-wrap: wrap; /* Prevents the button from squishing on small screens */
+    gap: 14px;
 
     .title-group {
-      h2 { margin: 0; color: #2d3436; font-size: 1.8rem; }
+      /* FIX 1: This places the badge side-by-side with the title */
+      display: flex; 
+      align-items: center;
+      gap: 15px;
+
+      h2 { 
+        margin: 0; 
+        color: #2d3436; 
+        font-size: 1.8rem; 
+        font-weight: 700;
+      }
+      
       .count-badge { 
         background: #dfe6e9; 
         padding: 4px 12px; 
         border-radius: 20px; 
         font-size: 0.85rem; 
         color: #636e72; 
+        font-weight: 600;
       }
     }
 
@@ -29,6 +43,8 @@
       cursor: pointer;
       font-weight: 600;
       transition: background 0.3s;
+      white-space: nowrap;
+      
       &:hover { background: #074b83; }
     }
   }
@@ -38,12 +54,18 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  overflow: hidden;
+  
+  /* FIX 2: This allows the table to scroll horizontally if fields are too wide */
+  overflow-x: auto; 
+  width: 100%;
 }
 
 .modern-table {
   width: 100%;
   border-collapse: collapse;
+  
+  /* FIX 3: Forces the table to stay wide enough so columns don't squish */
+  min-width: 500px; 
   
   th {
     background: #f1f2f6;
@@ -51,12 +73,14 @@
     text-align: left;
     color: #2d3436;
     font-weight: 600;
+    white-space: nowrap; /* Keeps column headers on one line */
   }
 
   td {
     padding: 15px;
     border-bottom: 1px solid #f1f2f6;
     color: #2d3436;
+    white-space: nowrap; /* Keeps cell data on one line */
   }
 
   .asset-name { font-weight: 600; color: #0984e3; }
@@ -67,6 +91,7 @@
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 0.8rem;
+    font-weight: 600;
   }
 
   .status-pill {
@@ -76,9 +101,10 @@
     font-weight: bold;
     text-transform: uppercase;
     
-    &[data-status="Active"] { background: #c6f6d5; color: #22543d; }
-    &[data-status="Inactive"] { background: #fed7d7; color: #822727; }
-    &[data-status="Deleted"] { background: #edf2f7; color: #4a5568; }
+    /* I combined both your Asset and User statuses here so one file handles both! */
+    &[data-status="Active"], &[data-status="Available"] { background: #c6f6d5; color: #22543d; }
+    &[data-status="Inactive"], &[data-status="Assigned"] { background: #fed7d7; color: #822727; }
+    &[data-status="Deleted"], &[data-status="Maintenance"] { background: #edf2f7; color: #4a5568; }
   }
 
   .actions-cell {
@@ -91,9 +117,17 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.8rem;
+      font-weight: 600;
+      transition: 0.2s;
       
-      &.edit { background: #fff4e5; color: #ff9800; }
-      &.delete { background: #ffe5e5; color: #f44336; }
+      &.edit { background: #fff4e5; color: #ff9800; &:hover { background: #ffe0b2; } }
+      &.delete { background: #ffe5e5; color: #f44336; &:hover { background: #ffcdd2; } }
     }
   }
+}
+
+.empty-state {
+  padding: 60px;
+  text-align: center;
+  color: #94a3b8;
 }

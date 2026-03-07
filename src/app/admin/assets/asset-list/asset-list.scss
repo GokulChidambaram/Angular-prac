@@ -1,94 +1,129 @@
 .asset-page {
-  padding: 30px;
-  background-color: #f9fbff;
+  padding: 2rem;
+  background-color: #f8f9fa;
   min-height: 100vh;
-  font-family: 'Segoe UI', Roboto, sans-serif;
-}
 
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Prevents the button from squishing on small screens */
+    gap: 15px;
 
-  .title-group {
-    h2 { margin: 0; color: #1a1a1a; font-weight: 700; }
-    .count-badge { color: #6c757d; font-size: 0.9rem; }
+    .title-group {
+      /* FIX 1: This places the badge side-by-side with the title */
+      display: flex; 
+      align-items: center;
+      gap: 15px;
+
+      h2 { 
+        margin: 0; 
+        color: #2d3436; 
+        font-size: 1.8rem; 
+        font-weight: 700;
+      }
+      
+      .count-badge { 
+        background: #dfe6e9; 
+        padding: 4px 12px; 
+        border-radius: 20px; 
+        font-size: 0.85rem; 
+        color: #636e72; 
+        font-weight: 600;
+      }
+    }
+
+    .add-button {
+      background: #0984e3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+      white-space: nowrap;
+      
+      &:hover { background: #074b83; }
+    }
   }
 }
 
-.add-button {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  &:hover { background-color: #1d4ed8; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
-}
-
 .table-card {
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  
+  /* FIX 2: This allows the table to scroll horizontally if fields are too wide */
+  overflow-x: auto; 
+  width: 100%;
 }
 
 .modern-table {
   width: 100%;
   border-collapse: collapse;
   
+  /* FIX 3: Forces the table to stay wide enough so columns don't squish */
+  min-width: 900px; 
+  
   th {
-    background: #f8fafc;
+    background: #f1f2f6;
+    padding: 15px;
     text-align: left;
-    padding: 16px;
-    font-size: 0.85rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 2px solid #e2e8f0;
+    color: #2d3436;
+    font-weight: 600;
+    white-space: nowrap; /* Keeps column headers on one line */
   }
 
   td {
-    padding: 16px;
-    border-bottom: 1px solid #f1f5f9;
-    color: #334155;
-    font-size: 0.95rem;
+    padding: 15px;
+    border-bottom: 1px solid #f1f2f6;
+    color: #2d3436;
+    white-space: nowrap; /* Keeps cell data on one line */
   }
 
-  .asset-name { font-weight: 600; color: #1e293b; }
-  .tag-label { font-family: 'Courier New', monospace; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; }
-}
-
-.status-pill {
-  padding: 4px 12px;
-  border-radius: 100px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  .asset-name { font-weight: 600; color: #0984e3; }
   
-  &[data-status="Available"] { background: #dcfce7; color: #15803d; }
-  &[data-status="Assigned"] { background: #dbeafe; color: #1e40af; }
-  &[data-status="Maintenance"] { background: #fef3c7; color: #92400e; }
-}
-
-.actions-cell {
-  display: flex;
-  gap: 10px;
-
-  button {
-    padding: 6px 12px;
+  .tag-label {
+    background: #e1f5fe;
+    color: #0288d1;
+    padding: 4px 8px;
     border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: 0.2s;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
 
-  .edit { background: #f1f5f9; color: #475569; &:hover { background: #e2e8f0; } }
-  .delete { background: #fee2e2; color: #dc2626; &:hover { background: #fecaca; } }
+  .status-pill {
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+    /* I combined both your Asset and User statuses here so one file handles both! */
+    &[data-status="Active"], &[data-status="Available"] { background: #c6f6d5; color: #22543d; }
+    &[data-status="Inactive"], &[data-status="Assigned"] { background: #fed7d7; color: #822727; }
+    &[data-status="Deleted"], &[data-status="Maintenance"] { background: #edf2f7; color: #4a5568; }
+  }
+
+  .actions-cell {
+    display: flex;
+    gap: 10px;
+    
+    .btn-icon {
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: 0.2s;
+      
+      &.edit { background: #fff4e5; color: #ff9800; &:hover { background: #ffe0b2; } }
+      &.delete { background: #ffe5e5; color: #f44336; &:hover { background: #ffcdd2; } }
+    }
+  }
 }
 
 .empty-state {

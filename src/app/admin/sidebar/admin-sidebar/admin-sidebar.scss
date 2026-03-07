@@ -1,108 +1,91 @@
-.app-container {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f8f9fa;
-}
-
-/* Sidebar Styling */
-.sidebar {
-  width: 260px;
-  background: #2f3640;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  position: sticky; /* Keeps it visible while scrolling content */
-  top: 0;
+:host {
+  display: block;
   height: 100vh;
 }
 
+.app-container {
+  height: 100%;
+}
+
+.sidebar {
+  width: 240px; /* Matched to your Manager sidebar width */
+  background-color: #1e293b; /* Dark slate to keep it uniform */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Keeps it pinned to the side */
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
 .sidebar-header {
-  padding: 30px 25px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  padding: 24px;
+  text-align: center;
+  border-bottom: 1px solid #334155;
+
+  .title {
+    margin: 0;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #f8fafc;
+  }
 }
 
 .nav-links {
-  flex: 1; /* Pushes logout section down */
   list-style: none;
   padding: 0;
-}
-
-.nav-links li {
-  padding: 15px 25px;
-  cursor: pointer;
-  transition: 0.2s;
-  color: #dcdde1;
-}
-
-.nav-links li:hover, .nav-links li.active {
-  background: #414b57;
-  color: #fff;
-  border-left: 4px solid #3498db;
-}
-
-/* Moving Logout Button slightly up */
-.logout-section {
-  padding: 0 20px 40px 20px; /* Increased bottom padding to move it up */
-}
-
-.logout-btn {
-  width: 100%;
-  padding: 12px;
-  background: #e84118;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Main Content Styling - VISIBILITY FIX */
-.main-content {
-  flex: 1; /* Takes up remaining width */
-  padding: 40px;
-  overflow-x: auto; /* Adds scrollbar if table is too wide */
-}
-
-.content-header {
+  margin: 20px 0;
+  flex: 1; /* This is the magic line that pushes the logout section down! */
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+  flex-direction: column;
+  overflow-y: auto; /* Adds a scrollbar if you add too many links later */
+
+  li {
+    padding: 12px 24px;
+    margin: 4px 16px; /* Adds a little breathing room around the hover state */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 1rem;
+    color: #94a3b8;
+    font-weight: 500;
+    border-radius: 8px; /* Rounded hover effects to match the others */
+
+    &:hover {
+      background-color: #334155;
+      color: #ffffff;
+    }
+
+    /* Keep this here so you can add an active state later */
+    &.active {
+      background-color: #3b82f6;
+      color: #ffffff;
+    }
+  }
 }
 
-.table-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  padding: 10px;
-}
+.logout-section {
+  padding: 24px;
+  border-top: 1px solid #334155;
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+  .logout-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(239, 68, 68, 0.1); 
+    color: #ef4444; 
+    border: 1px solid #ef4444;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    font-size: 1rem;
 
-th {
-  text-align: left;
-  padding: 15px;
-  color: #7f8c8d;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  border-bottom: 1px solid #eee;
-}
-
-td {
-  padding: 15px;
-  border-bottom: 1px solid #f9f9f9;
-}
-
-/* Status Badges */
-.status.available {
-  background: #dff9fb;
-  color: #009432;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
+    &:hover {
+      background-color: #ef4444;
+      color: #ffffff;
+    }
+  }
 }

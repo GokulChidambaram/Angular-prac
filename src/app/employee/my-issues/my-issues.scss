@@ -1,0 +1,140 @@
+.asset-page {
+  animation: fadeIn 0.3s ease-in-out;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .title-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    h2 {
+      margin: 0;
+      color: #0f172a;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .count-badge {
+      background-color: #e2e8f0;
+      color: #475569;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.table-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  overflow-x: auto;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    padding: 16px;
+    background-color: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  tr:hover td {
+    background-color: #f8fafc;
+  }
+}
+
+.tag-label {
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  color: #475569;
+}
+
+.asset-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* --- Specific to Issues --- */
+
+.reason-col {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  color: #64748b;
+}
+
+.status-pill {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 90px;
+  text-transform: capitalize;
+
+  /* Issue Statuses adapted to your light theme palette */
+  &[data-status="Pending"], &[data-status="pending"] {
+    background-color: #fef3c7; /* Light Amber */
+    color: #d97706; /* Dark Amber */
+  }
+
+  &[data-status="In Progress"], &[data-status="in progress"] {
+    background-color: #dbeafe; /* Light Blue */
+    color: #1d4ed8; /* Dark Blue */
+  }
+
+  &[data-status="Resolved"], &[data-status="resolved"] {
+    background-color: #dcfce3; /* Light Green */
+    color: #166534; /* Dark Green */
+  }
+}
+
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #64748b;
+  
+  h3 {
+    color: #0f172a;
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+  }
+}

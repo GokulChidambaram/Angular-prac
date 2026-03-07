@@ -10,14 +10,31 @@
     align-items: center;
     margin-bottom: 30px;
 
-    .title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #1a202c;
+    /* Added title group for badge alignment */
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a202c;
+      }
+
+      .count-badge {
+        background: #dfe6e9;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: #636e72;
+        font-weight: 600;
+      }
     }
 
     .btn-add-category {
-      background-color: #5c59e8;
+      background-color: #0984e3;
       color: white;
       padding: 10px 20px;
       border-radius: 8px;
