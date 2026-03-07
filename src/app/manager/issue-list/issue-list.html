@@ -1,0 +1,50 @@
+<div class="issue-page">
+  <div class="header-container">
+    <h2>Asset Issues Queue</h2>
+  </div>
+
+  <div class="table-card" *ngIf="!isLoading">
+    <table class="modern-table" *ngIf="issues.length > 0">
+      <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Reported By</th>
+          <th>Problem</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let issue of issues; trackBy: trackByIssueId">
+          <td><strong>{{ issue.assetName }}</strong></td>
+          <td>{{ issue.reportedByName }}</td>
+          <td>{{ issue.description }}</td>
+          <td>
+            <span class="status-badge" [attr.data-status]="issue.status">
+              {{ issue.status }}
+            </span>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button *ngIf="issue.status === STATUS.OPEN" 
+                      (click)="updateStatus(issue, 1, 'In Progress')" 
+                      class="btn-work">
+                Start Work
+              </button>
+
+              <button *ngIf="issue.status === STATUS.IN_PROGRESS" 
+                      (click)="updateStatus(issue, 2, 'Resolved')" 
+                      class="btn-resolve">
+                Complete
+              </button>
+
+              <span *ngIf="issue.status === STATUS.RESOLVED" class="resolved-check">
+                ✓ Fixed
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
