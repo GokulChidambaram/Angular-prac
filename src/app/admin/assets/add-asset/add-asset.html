@@ -1,24 +1,72 @@
 <h2>Add New Asset</h2>
+
 <form [formGroup]="assetForm" (ngSubmit)="save()">
-<input formControlName="name" placeholder="Asset Name" />
-<input formControlName="modelNo" placeholder="Model No" />
-<!-- Category from DB -->
-<select formControlName="categoryID">
-<option value="" disabled>Select Category</option>
-<option *ngFor="let c of categories" [value]="c.categoryID">
- 
-      {{ c.name }}
-</option>
-</select>
-<input formControlName="tag" placeholder="Asset Tag" />
-<textarea formControlName="description" placeholder="Description"></textarea>
-<div class="field">
-<label>Date of Purchase</label>
-<input type="date" formControlName="purchaseDate" />
-</div>
-<input type="number" formControlName="cost" placeholder="Unit Price" />
-<!-- Plain text (NOT dropdowns) -->
-<input formControlName="departmentName" placeholder="Department Name" />
-<input formControlName="supplierName" placeholder="Supplier Name" />
-<button type="submit">Save</button>
+  
+  <div class="field">
+    <label>Asset Name *</label>
+    <input formControlName="name" placeholder="e.g. Dell Latitude" [class.error-border]="isInvalid('name')" />
+    <span class="error-text" *ngIf="isInvalid('name')">Required</span>
+  </div>
+
+  <div class="field">
+    <label>Model Number *</label>
+    <input formControlName="modelNo" placeholder="e.g. SN-100" [class.error-border]="isInvalid('modelNo')" />
+    <span class="error-text" *ngIf="isInvalid('modelNo')">Required</span>
+  </div>
+
+  <div class="field">
+    <label>Category *</label>
+    <select formControlName="categoryID" [class.error-border]="isInvalid('categoryID')">
+      <option [ngValue]="null" disabled>Select Category</option>
+      <option *ngFor="let c of categories" [ngValue]="c.categoryID">
+        {{ c.name }}
+      </option>
+    </select>
+    <span class="error-text" *ngIf="isInvalid('categoryID')">Required</span>
+  </div>
+
+  <div class="field">
+    <label>Asset Tag</label>
+    <input formControlName="tag" placeholder="Optional" />
+  </div>
+
+  <div class="field">
+    <label>Date of Purchase *</label>
+    <input type="date" formControlName="purchaseDate" [class.error-border]="isInvalid('purchaseDate')" />
+    <span class="error-text" *ngIf="isInvalid('purchaseDate')">Required</span>
+  </div>
+
+  <div class="field">
+    <label>Unit Price *</label>
+    <input type="number" formControlName="cost" [class.error-border]="isInvalid('cost')" />
+    <span class="error-text" *ngIf="isInvalid('cost')">Required</span>
+  </div>
+
+  <div class="field">
+    <label>Department *</label>
+    <input formControlName="departmentName" placeholder="e.g. IT" [class.error-border]="isInvalid('departmentName')" />
+    <span class="error-text" *ngIf="isInvalid('departmentName')">Required</span>
+  </div>
+
+  <div class="field">
+    <label>Supplier *</label>
+    <input formControlName="supplierName" placeholder="e.g. Dell" [class.error-border]="isInvalid('supplierName')" />
+    <span class="error-text" *ngIf="isInvalid('supplierName')">Required</span>
+  </div>
+
+  <div class="field full-width">
+    <label>Description *</label>
+    <textarea formControlName="description" placeholder="Required description" [class.error-border]="isInvalid('description')"></textarea>
+    <span class="error-text" *ngIf="isInvalid('description')">Required</span>
+  </div>
+
+  <div class="button-group">
+    <button type="submit" class="btn-save" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Saving...' : 'Save Asset' }}
+    </button>
+    <button type="button" class="btn-clear" (click)="assetForm.reset({categoryID: null})">
+      Clear Form
+    </button>
+  </div>
+
 </form>
