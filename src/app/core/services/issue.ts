@@ -15,7 +15,7 @@ export class IssueService {
     return this.http.post(this.apiUrl, payload);
   }
 
-  // Calls the new secure endpoint we just created
+  // Calls the secure endpoint we created for the logged-in user
   getMyIssues(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/my-issues`);
   }
@@ -26,7 +26,9 @@ export class IssueService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  // --- UPDATED METHOD ---
+  // Now uses PATCH and the correct /status endpoint
   updateStatus(id: number, payload: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, payload);
+    return this.http.patch(`${this.apiUrl}/${id}/status`, payload);
   }
 }
