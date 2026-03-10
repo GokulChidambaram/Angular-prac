@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div *ngIf="isLoading" class="loading-state">
+  <div *ngIf="isLoading" class="loading-state" style="padding: 20px; text-align: center;">
     <p>Loading your reported issues...</p>
   </div>
 
@@ -22,11 +22,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let issue of issues">
+        <tr *ngFor="let issue of issues; trackBy: trackByIssueId">
           <td><span class="tag-label">#ISS-{{ issue.issueID }}</span></td>
-          <td class="asset-name">{{ issue.assetName }}</td>
+          <td class="asset-name"><strong>{{ issue.assetName }}</strong></td>
           <td class="reason-col">{{ issue.description }}</td>
-          <td>{{ issue.reportedDate | date:'dd-MM-yyyy' }}</td>
+          <td>{{ issue.reportedDate | date:'dd-MMM-yyyy' }}</td>
           <td>
             <span class="status-pill" [attr.data-status]="issue.status">
               {{ issue.status }}

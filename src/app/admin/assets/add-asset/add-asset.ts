@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class AddAssetComponent implements OnInit {
   public assetForm!: FormGroup;
-  public categories: any[] = []; // Flexible type in case your DB returns more than just id/name
+  public categories: any[] = [];
   public isSubmitting = false;
 
   constructor(
@@ -25,43 +25,54 @@ export class AddAssetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // 1. Initialize form with null for categoryID to match [ngValue]
     this.assetForm = this.fb.group({
       name: ['', Validators.required],
       modelNo: ['', Validators.required],
-      categoryID: ['', Validators.required], // Initialize as empty string to match HTML
+      categoryID: [null, Validators.required], 
       tag: [''],
-      description: [''],
+      description: ['', Validators.required],
       purchaseDate: ['', Validators.required],
-      cost: ['', [Validators.required, Validators.min(0)]],
+      cost: [0, [Validators.required, Validators.min(0)]],
       departmentName: ['', Validators.required],
       supplierName: ['', Validators.required]
     });
 
-    // Load category dropdown from DB
+    // 2. Load categories from your API
     this.categoryService.getCategories().subscribe({
       next: (res) => this.categories = res,
       error: (err) => console.error('Failed to load categories', err)
     });
   }
 
+  // Helper for HTML validation feedback
+  isInvalid(controlName: string): boolean {
+    const control = this.assetForm.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
   save(): void {
-    // 1. Check validity and show errors if invalid
     if (this.assetForm.invalid) {
-      this.assetForm.markAllAsTouched(); 
+      this.assetForm.markAllAsTouched();
       console.warn("Form is invalid! Check missing fields.");
       return;
     }
 
     this.isSubmitting = true;
 
-    // 2. Force numbers to be numbers for the C# backend!
+    // 3. Map values to match your C# AssetCreateDto exactly
     const payload = {
-      ...this.assetForm.value,
+      name: this.assetForm.value.name,
+      description: this.assetForm.value.description,
+      modelNo: this.assetForm.value.modelNo,
+      departmentName: this.assetForm.value.departmentName,
+      supplierName: this.assetForm.value.supplierName,
       categoryID: Number(this.assetForm.value.categoryID),
+      tag: this.assetForm.value.tag || "", 
+      purchaseDate: new Date(this.assetForm.value.purchaseDate).toISOString(),
       cost: Number(this.assetForm.value.cost)
     };
 
-    // 3. Send to API
     this.assetService.createAsset(payload).subscribe({
       next: () => {
         alert('Asset created successfully!');
@@ -70,7 +81,7 @@ export class AddAssetComponent implements OnInit {
       },
       error: (err) => {
         console.error('API Error:', err);
-        alert('Failed to create asset. Check the console for details.');
+        alert('Failed to save asset. Check the console.');
         this.isSubmitting = false;
       }
     });

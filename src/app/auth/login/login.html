@@ -1,7 +1,13 @@
-<h2>Login</h2>
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
-<input type="email" placeholder="Email" formControlName="email" />
-<input type="password" placeholder="Password" formControlName="password" />
-<button type="submit">Login</button>
-</form>
- 
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    
+    <div class="brand">
+      <h2>AssetTrack</h2>
+    </div>
+
+    <input type="email" placeholder="Email" formControlName="email" />
+    <input type="password" placeholder="Password" formControlName="password" />
+    
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </form>
+</div>

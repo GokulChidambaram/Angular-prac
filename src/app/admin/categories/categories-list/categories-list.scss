@@ -4,18 +4,37 @@
   background-color: #f8fafc;
   min-height: 100vh;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin: 0;
+
+  /* Added title group for badge alignment */
+  .title-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    .count-badge {
+      background: #dfe6e9;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #636e72;
+      font-weight: 600;
+    }
   }
 }
+
 /* Table Styling */
 table {
   width: 100%;
@@ -25,6 +44,7 @@ table {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
   thead {
     background-color: #f1f5f9;   
     th {
@@ -38,6 +58,7 @@ table {
       border-bottom: 1px solid #e2e8f0;
     }
   }
+
   tbody {
     tr {
       transition: background-color 0.2s;      
@@ -57,6 +78,7 @@ table {
     }
   }
 }
+
 /* Buttons */
 button {
   padding: 0.5rem 1rem;
@@ -72,7 +94,7 @@ button {
 }
 
 .btn-add {
-  background-color: #4f46e5; // Indigo 600
+  background-color: #0984e3;
   color: white;
   padding: 0.75rem 1.5rem;
   

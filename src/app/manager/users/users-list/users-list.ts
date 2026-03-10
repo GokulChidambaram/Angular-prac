@@ -32,7 +32,7 @@ export class ManagerUsersListComponent implements OnInit {
       },
       error: (err) => {
         console.error('API Error:', err);
-        alert('Failed to load users. Ensure you are logged in as Admin.');
+        alert('Failed to load users.');
       }
     });
   }

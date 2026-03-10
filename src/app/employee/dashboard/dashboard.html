@@ -1,4 +1,11 @@
 <div class="asset-page">
+  <div class="header-container">
+    <div class="title-group">
+      <h2>My Assets</h2>
+      <span class="count-badge">{{ myAssets.length }} Total Assets</span>
+    </div>
+  </div>
+
   <div class="table-card" *ngIf="!isLoading">
     <table class="modern-table" *ngIf="myAssets.length > 0">
       <thead>
@@ -7,7 +14,8 @@
           <th>Name</th>
           <th>Category</th>
           <th>Model No</th>
-          <th>Action</th> </tr>
+          <th>Action</th> 
+        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let asset of myAssets">
@@ -24,7 +32,7 @@
         </tr>
       </tbody>
     </table>
-    </div>
+  </div>
 </div>
 
 <div class="modal-overlay" *ngIf="selectedAssetForIssue" 
@@ -44,7 +52,7 @@
     <div class="form-group" style="margin-bottom: 20px;">
       <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
         <input type="checkbox" [(ngModel)]="requiresRepair">
-        Does this asset require  repair?
+        Does this asset require repair?
       </label>
     </div>
 
